@@ -28,3 +28,11 @@
     Answer.objects.all()
 
     => 아무것도 없다면 <QuerySet []> 출력
+
+## render()
+    render 함수는 Django에서 뷰(view)가 HTML 템플릿을 렌더링할 때 사용하는 함수
+
+    render(request, template_name, context)
+    request : 요청 객체 (무조건 넣어야 함)
+    template_name : 렌더링할 HTML 경로 (예: 'board/question_list.html')
+    context : 템플릿에 넘겨줄 데이터 (딕셔너리 형태)
