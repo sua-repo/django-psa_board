@@ -1,5 +1,19 @@
+# Python
 __pycache__/
-*.pyc
-*.sqlite3
-.env
+*.py[cod]
+
+# VS Code
 .vscode/
+
+# 환경 파일
+.env
+
+# DB 파일 (sqlite는 개인 개발 단계에서만 사용하니까)
+*.sqlite3
+
+# 마이그레이션 캐시 파일
+*.log
+
+# macOS, Windows 특화 파일
+.DS_Store
+Thumbs.db
