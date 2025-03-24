@@ -1,4 +1,9 @@
 <h1>질문 목록</h1>
+
+<a href="{% url 'board:question_create' %}">
+  <button>질문 등록</button>
+</a>
+
 <ul>
   {% for question in question_list %}
     <li>

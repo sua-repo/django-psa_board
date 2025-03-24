@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
-from board.forms import AnswerForm
-from board.models import Question
+from .forms import AnswerForm, QuestionForm
+from .models import Question
 
 # Create your views here.
 
@@ -33,3 +33,21 @@ def question_detail(request, question_id) :
     context = {"question" : question, "form" : form}
 
     return render(request, "board/question_detail.html", context)
+
+
+# dev_4
+def question_create(request) : 
+    if request.method == "POST" : 
+        form = QuestionForm(request.POST)
+        if form.is_valid() : 
+            question = form.save(commit=False)
+            question.create_date = timezone.now()
+            question.save()
+
+            return redirect("board:question_list")
+    else : 
+        form = QuestionForm()
+    
+    context = {"form" : form}
+    return render(request, "board/question_form.html", context)
+        

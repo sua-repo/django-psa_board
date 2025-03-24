@@ -1,0 +1,22 @@
+<h1>질문 등록</h1>
+
+<!-- 오류 메세지 -->
+{% if form.errors %}
+        <div style="color: red;">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">등록</button>
+</form>
+
+<a href="{% url 'board:question_list' %}">← 질문 목록으로</a>

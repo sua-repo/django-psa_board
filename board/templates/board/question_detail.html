@@ -1,6 +1,27 @@
-<h2>답변 작성</h2>
+<h1>{{ question.title }}</h1>
+<p>{{ question.content }}</p>
+<p>작성일: {{ question.create_date }}</p>
+
+<hr>
+
+<h2>답변 달기</h2>
+
+{% if form.errors %}
+  <div style="color: red;">
+    <ul>
+      {% for field in form %}
+        {% for error in field.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
 <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">답변 등록</button>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">답변 등록</button>
 </form>
+
+<a href="{% url 'board:question_list' %}">← 목록으로</a>
