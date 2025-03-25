@@ -4,9 +4,22 @@
 
 <hr>
 
+<h2>답변 목록</h2>
+{% if question.answer_set.all %}
+  <ul>
+    {% for answer in question.answer_set.all %}
+      <li>{{ answer.content }} ({{ answer.create_date }})</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>아직 답변이 없습니다.</p>
+{% endif %}
+
+<hr>
+
 <h2>답변 달기</h2>
 
-{% if form.errors %}
+{% if request.method == "POST" and form.errors %}
   <div style="color: red;">
     <ul>
       {% for field in form %}
