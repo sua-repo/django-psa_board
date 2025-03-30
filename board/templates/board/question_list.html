@@ -9,7 +9,12 @@
         {% for question in question_list %}
             <a href="{% url 'board:question_detail' question.id %}" class="list-group-item list-group-item-action">
                 <div class="d-flex justify-content-between">
-                    <h5>{{ question.title }}</h5>
+                    <h5>
+                      {{ question.title }}
+                      {% if question.num_answers > 0 %}
+                        <span class="badge badge-primary badge-pill ml-1">{{ question.num_answers }}</span>
+                      {% endif %}
+                    </h5>
                     <small>{{ question.create_date}}</small>
                 </div>
             </a>

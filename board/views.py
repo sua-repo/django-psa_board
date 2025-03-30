@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import AnswerForm, QuestionForm
 from .models import Question
 from django.core.paginator import Paginator
+from django.db.models import Count
 
 # Create your views here.
 
@@ -13,7 +14,8 @@ def question_list(request) :
     # ?page=1
     page = request.GET.get("page", "1")  # URL에서 ?page=1 값을 가져옴
 
-    question_list = Question.objects.order_by("-create_date")
+    # question_list = Question.objects.order_by("-create_date")
+    question_list = Question.objects.annotate(num_answers=Count('answer')).order_by('-create_date')     # annotate()를 사용하여 각 질문의 답변 수 추가
 
     paginator = Paginator(question_list, 10)
     page_obj = paginator.get_page(page)     # 해당 페이지에 해당하는 데이터 가져옴
