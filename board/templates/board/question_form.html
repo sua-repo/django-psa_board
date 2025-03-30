@@ -1,21 +1,36 @@
-<h1>질문 등록</h1>
+{% extends "board/base.html" %}
 
-{% if form.errors %}
-  <div style="color: red;">
-    <ul>
-      {% for field in form %}
-        {% for error in field.errors %}
-          <li>{{ error }}</li>
+{% block title %}질문 등록{% endblock title %}
+
+{% block content %}
+<h1 class="mb-3">질문 등록</h1>
+
+<form method="post" class="card p-4 shadow">
+  {% csrf_token %}
+  
+  {% if form.errors %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
         {% endfor %}
-      {% endfor %}
-    </ul>
-  </div>
-{% endif %}
+      </ul>
+    </div>
+  {% endif %}
 
-<form method="post" action="{% url 'board:question_create' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">등록</button>
+  <div class="mb-3">
+    <label class="form-label">제목</label>
+    {{ form.title|add_class:"form-control w-100" }}  <!-- 카드 너비에 맞게 조정 -->
+  </div>
+  <div class="mb-3">
+    <label class="form-label">내용</label>
+    {{ form.content|add_class:"form-control w-100" }}  <!-- 카드 너비에 맞게 조정 -->
+  </div>
+
+  <button type="submit" class="btn btn-primary">등록</button>
 </form>
 
-<a href="{% url 'board:question_list' %}">← 질문 목록으로</a>
+<a href="{% url 'board:question_list' %}" class="btn btn-secondary mt-3">← 목록으로</a>
+{% endblock content %}

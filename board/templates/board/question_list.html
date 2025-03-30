@@ -1,38 +1,38 @@
-<h1>질문 목록</h1>
+{% extends "board/base.html" %}
 
-<a href="{% url 'board:question_create' %}">
-  <button>질문 등록</button>
-</a>
+{% block title %}질문 목록{% endblock %}
 
-<ul>
-  {% for question in question_list %}
-    <li>
-      <a href="{% url 'board:question_detail' question.id %}">
-        {{ question.title }}
-      </a>
-    </li>
-  {% empty %}
-    <li>질문이 없습니다.</li>
-  {% endfor %}
-</ul>
-
-<!-- 5개씩 끊어서 페이지네이션 -->
-<div>
-  {% if has_previous %}
-    <a href="?page=1">처음</a>
-    <a href="?page={{ previous_page_number }}">이전</a>
-  {% endif %}
-
-  {% for num in page_range %}
-    {% if num == question_list.number %}
-      <strong>{{ num }}</strong>
-    {% else %}
-      <a href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
-  {% endfor %}
-
-  {% if has_next %}
-    <a href="?page={{ next_page_number }}">다음</a>
-    <a href="?page={{ total_pages }}">마지막</a>
-  {% endif %}
-</div>
+{% block content %}
+    <h1 class="mb-3">질문 목록</h1>
+    <a href="{% url 'board:question_create' %}" class="btn btn-primary mb-3">질문 등록</a>
+    <div class="list-group">
+        {% for question in question_list %}
+            <a href="{% url 'board:question_detail' question.id %}" class="list-group-item list-group-item-action">
+                <div class="d-flex justify-content-between">
+                    <h5>{{ question.title }}</h5>
+                    <small>{{ question.create_date }}</small>
+                </div>
+            </a>
+        {% empty %}
+            <p>질문이 없습니다.</p>
+        {% endfor %}
+    </div>
+    <!-- 페이지네이션 -->
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">처음</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ previous_page_number }}">이전</a></li>
+            {% endif %}
+            {% for num in page_range %}
+                <li class="page-item {% if num == question_list.number %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+            {% if has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ next_page_number }}">다음</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ total_pages }}">마지막</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

@@ -23,7 +23,10 @@ class AnswerForm(forms.ModelForm) :
 
         fields = ['content']
 
-    
+        widgets = {
+            "content": forms.Textarea(attrs={"class": "form-control w-100", "rows": 4}),
+        }
+        
     def clean(self) : 
         cleaned_data = super().clean()
 

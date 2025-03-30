@@ -1,26 +1,37 @@
-<h1>{{ question.title }}</h1>
-<p>{{ question.content }}</p>
-<p>작성일: {{ question.create_date }}</p>
+{% extends "board/base.html" %}
+
+{% block title %}{{ question.title }}{% endblock title %}
+
+{% block content %}
+<h1 class="mb-3">{{ question.title }}</h1>
+<p class="text-muted">작성일: {{ question.create_date }}</p>
+
+<div class="card p-4 shadow mb-4">
+  <p>{{ question.content }}</p>
+</div>
 
 <hr>
 
-<h2>답변 목록</h2>
+<h2 class="mb-3">답변 목록</h2>
 {% if question.answer_set.all %}
-  <ul>
+  <ul class="list-group">
     {% for answer in question.answer_set.all %}
-      <li>{{ answer.content }} ({{ answer.create_date }})</li>
+      <li class="list-group-item">
+        {{ answer.content }} <br>
+        <small class="text-muted">작성일: {{ answer.create_date }}</small>
+      </li>
     {% endfor %}
   </ul>
 {% else %}
-  <p>아직 답변이 없습니다.</p>
+  <p class="text-muted">아직 답변이 없습니다.</p>
 {% endif %}
 
 <hr>
 
-<h2>답변 달기</h2>
+<h2 class="mb-3">답변 달기</h2>
 
 {% if request.method == "POST" and form.errors %}
-  <div style="color: red;">
+  <div class="alert alert-danger">
     <ul>
       {% for field in form %}
         {% for error in field.errors %}
@@ -31,10 +42,14 @@
   </div>
 {% endif %}
 
-<form method="post">
+<form method="post" class="card p-4 shadow w-100">
   {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">답변 등록</button>
+  <div class="mb-3">
+    <label class="form-label">답변 내용</label>
+    {{ form.content }}  <!-- 이제 자동으로 스타일이 적용됨 -->
+  </div>
+  <button type="submit" class="btn btn-primary">답변 등록</button>
 </form>
 
-<a href="{% url 'board:question_list' %}">← 목록으로</a>
+<a href="{% url 'board:question_list' %}" class="btn btn-secondary mt-3">← 목록으로</a>
+{% endblock content %}
