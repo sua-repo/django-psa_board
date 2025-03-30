@@ -10,7 +10,7 @@
             <a href="{% url 'board:question_detail' question.id %}" class="list-group-item list-group-item-action">
                 <div class="d-flex justify-content-between">
                     <h5>{{ question.title }}</h5>
-                    <small>{{ question.create_date }}</small>
+                    <small>{{ question.create_date}}</small>
                 </div>
             </a>
         {% empty %}

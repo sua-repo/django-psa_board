@@ -55,7 +55,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -104,11 +104,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = 'ko-kr'  # 한글로 설정
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'Asia/Seoul'  # 한국 시간대로 설정
 
 USE_I18N = True
+# USE_L10N = False  # 시간 표시 형식을 직접 설정할 때는 False
 
 USE_TZ = True
 

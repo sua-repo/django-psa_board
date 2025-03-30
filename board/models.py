@@ -16,7 +16,8 @@ class Question(models.Model) :
 class Answer(models.Model) : 
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     content = models.TextField()
-    create_date = models.DateField()
+    # create_date = models.DateField()  # 시간 안 나옴
+    create_date = models.DateTimeField()
 
     def __str__(self) : 
         return f"Answer to : {self.question.title}"
